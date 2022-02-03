@@ -4,13 +4,25 @@ import Tile from "../tile";
 import "./map.css";
 import Player from "../player";
 const Map = () => {
-  const [playerPosition, setPlayerPosition] = useState({ x: 1, y: 1 });
+  // const players = [{ id:'fadsfd',x: 1, y: 1 ,isFacingForward:true}]
+  const [playerPosition, setPlayerPosition] = useState({ x: 1, y: 1 ,isFacingForward:true});
+
+  // const [isFacingForward,setIsFacingForward] = useState(true)
+
   const world = [];
 
   useEffect(() => {
-    window.addEventListener("keydown", (e) => movePlayer(e, setPlayerPosition));
+    const movePlayerFunc = (e) => {
+       movePlayer(e, setPlayerPosition)
+       }
+    window.addEventListener("keydown",movePlayerFunc)
+    // console.log(isFacingForward));
+    return () => {
+      window.removeEventListener("keydown",movePlayerFunc)
+    }
   }, []);
 
+  
   matrixGenerator(world, 20, 20, "d");
 
   const renderMap = () => {
@@ -24,7 +36,7 @@ const Map = () => {
       })
     );
   };
-  return <div className="game-board">{renderMap()}</div>;
+  return <div className="game-board">{renderMap()} <Player position={""} isFacingForward={playerPosition.isFacingForward}/></div>;
 };
 
 export default Map;

@@ -3,31 +3,35 @@ export const matrixGenerator = (arr, rows, cols, blocktype) => {
     arr.push(Array(cols).fill(blocktype));
   }
 };
-export const movePlayer = ({ key }, setter) => {
+export const movePlayer = ({ key }, setPos) => {
   switch (key) {
     case "w": {
-      setter((prev) => {
+      setPos((prev) => {
+        console.log(prev);
         return { ...prev, x: prev.x-- };
       });
       break;
     }
 
     case "a": {
-      setter((prev) => {
-        return { ...prev, y: prev.y-- };
+      setPos((prev) => {
+        console.log(prev);
+        return {...prev, isFacingForward: false, y: prev.y-- };
       });
       break;
     }
 
     case "s": {
-      setter((prev) => {
+      setPos((prev) => {
+        console.log(prev);
         return { ...prev, x: prev.x++ };
       });
       break;
     }
     case "d": {
-      setter((prev) => {
-        return { ...prev, y: prev.y++ };
+      setPos((prev) => {
+        console.log(prev);
+        return { ...prev,isFacingForward: true, y: prev.y++ };
       });
       break;
     }
@@ -35,4 +39,5 @@ export const movePlayer = ({ key }, setter) => {
     default:
       return;
   }
+  
 };
