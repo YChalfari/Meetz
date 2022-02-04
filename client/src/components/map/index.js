@@ -24,7 +24,7 @@ const Map = () => {
 
   
   matrixGenerator(world, 20, 20, "d");
-
+  
   const renderMap = () => {
     return world.map((row, i) =>
       row.map((col, j) => {
