@@ -7,7 +7,9 @@ const LandingPage = () => {
   const [isRegister, setIsRegister] = useState(false);
   const navigate = useNavigate();
 
-  const handleRegister = (form) => {};
+  const handleRegister = (form) => {
+    navigate("/room");
+  };
   const toggleRegister = () => {
     setIsRegister((prev) => !prev);
   };
@@ -17,6 +19,7 @@ const LandingPage = () => {
       <div className="landing-page__form">
         {!isRegister ? (
           <Form
+            handleSubmit={handleRegister}
             link={
               <p className="form-toggle" onClick={toggleRegister}>
                 Don't have an account? Register now!

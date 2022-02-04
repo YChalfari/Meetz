@@ -5,7 +5,11 @@ import "./map.css";
 import Player from "../player";
 const Map = () => {
   // const players = [{ id:'fadsfd',x: 1, y: 1 ,isFacingForward:true}]
-  const [playerPosition, setPlayerPosition] = useState({ x: 1, y: 1 ,isFacingForward:true});
+  const [playerPosition, setPlayerPosition] = useState({
+    x: 1,
+    y: 1,
+    isFacingForward: true,
+  });
 
   // const [isFacingForward,setIsFacingForward] = useState(true)
 
@@ -13,30 +17,33 @@ const Map = () => {
 
   useEffect(() => {
     const movePlayerFunc = (e) => {
-       movePlayer(e, setPlayerPosition)
-       }
-    window.addEventListener("keydown",movePlayerFunc)
+      movePlayer(e, setPlayerPosition);
+    };
+    window.addEventListener("keydown", movePlayerFunc);
     // console.log(isFacingForward));
     return () => {
-      window.removeEventListener("keydown",movePlayerFunc)
-    }
+      window.removeEventListener("keydown", movePlayerFunc);
+    };
   }, []);
 
-  
   matrixGenerator(world, 20, 20, "d");
-  
+
   const renderMap = () => {
     return world.map((row, i) =>
       row.map((col, j) => {
         return i === playerPosition.x && j === playerPosition.y ? (
-          <Tile className="tile" player={true} />
+          <Tile
+            className="tile"
+            player={true}
+            isFacingForward={playerPosition.isFacingForward}
+          />
         ) : (
           <Tile className="tile" player={false} />
         );
       })
     );
   };
-  return <div className="game-board">{renderMap()} <Player position={""} isFacingForward={playerPosition.isFacingForward}/></div>;
+  return <div className="game-board">{renderMap()}</div>;
 };
 
 export default Map;
