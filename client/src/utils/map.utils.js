@@ -7,7 +7,6 @@ export const movePlayer = ({ key }, setPos) => {
   switch (key) {
     case "w": {
       setPos((prev) => {
-        console.log(prev);
         return { ...prev, x: prev.x-- };
       });
       break;
@@ -15,23 +14,20 @@ export const movePlayer = ({ key }, setPos) => {
 
     case "a": {
       setPos((prev) => {
-        console.log(prev);
-        return {...prev, isFacingForward: false, y: prev.y-- };
+        return { ...prev, isFacingForward: false, y: prev.y-- };
       });
       break;
     }
 
     case "s": {
       setPos((prev) => {
-        console.log(prev);
         return { ...prev, x: prev.x++ };
       });
       break;
     }
     case "d": {
       setPos((prev) => {
-        console.log(prev);
-        return { ...prev,isFacingForward: true, y: prev.y++ };
+        return { ...prev, isFacingForward: true, y: prev.y++ };
       });
       break;
     }
@@ -39,5 +35,4 @@ export const movePlayer = ({ key }, setPos) => {
     default:
       return;
   }
-  
 };
