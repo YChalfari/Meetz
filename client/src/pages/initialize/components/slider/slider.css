@@ -1,0 +1,18 @@
+.selected-char {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 100%;
+  position: relative;
+}
+.selected-char img {
+  max-height: 80%;
+}
+.slider-btn {
+  position: relative;
+}
+.slider-btn i {
+  position: relative;
+  top: 50%;
+  color: rgb(214, 204, 204);
+}

@@ -8,34 +8,44 @@ import Player from "../player";
 
 const socket = io.connect("127.0.0.1:3001");
 const Map = () => {
-  const { user, setUser } = useContext(UserContext);
-  const players = [
-    // { sID: socket.id, position: { x: 0, y: 0 }, isFacingForward: false },
-  ];
+  const { user, setUser, players, setPlayers } = useContext(UserContext);
+  const playerss = [];
   const [playerPosition, setPlayerPosition] = useState({
     x: 1,
     y: 1,
     isFacingForward: true,
   });
 
-  socket.on("join", ({ position, displayName, isFacingForward, id }) => {
-    console.log(position);
-  });
-  socket.on("movePlayer", ({ id, position }) => {
-    //this is logging 22 times on each movement
-    console.log(id, position);
-  });
   // const [isFacingForward,setIsFacingForward] = useState(true)
 
   const world = [];
 
+  const defaultPlayer = (user, position) => {
+    const newUser = { ...user };
+    newUser.position = position;
+    newUser.isFacingForward = true;
+    newUser.sID = socket.id;
+    setUser(newUser);
+    playerss.push(newUser);
+    // setPlayers((prev) => prev.concat(newUser));
+  };
+
   useEffect(() => {
-    console.log(user);
+    socket.on("connect", () => {
+      defaultPlayer(user, { x: 1, y: 1 });
+    });
     socket.emit("join", {
       position: playerPosition.x,
       displayName: "David",
       id: socket.id,
       isFacingForward: playerPosition.isFacingForward,
+    });
+    socket.on("join", ({ position, displayName, isFacingForward, id }) => {
+      console.log(position);
+    });
+    socket.on("movePlayer", ({ id, position }) => {
+      //this is logging 22 times on each movement
+      console.log(id, position);
     });
     const movePlayerFunc = (e) => {
       movePlayer(e, setPlayerPosition);
@@ -47,6 +57,7 @@ const Map = () => {
       window.removeEventListener("keydown", movePlayerFunc);
     };
   }, []);
+  console.log(user, players);
 
   matrixGenerator(world, 20, 20, "d");
 
@@ -65,6 +76,17 @@ const Map = () => {
       })
     );
   };
+  // console.log(playerPosition.isFacingForward);
+  const renderPlayers = () => {
+    return playerss.map((player) => (
+      <Player
+        position={player.position}
+        isFacingForward={player.isFacingForward}
+      />
+    ));
+  };
+  // {renderPlayers()}
+  //
   return <div className="game-board">{renderMap()}</div>;
 };
 

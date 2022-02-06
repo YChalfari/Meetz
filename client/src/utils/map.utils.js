@@ -1,6 +1,6 @@
-export const matrixGenerator = (arr, rows, cols, blocktype) => {
+export const matrixGenerator = (arr, rows, cols, players) => {
   for (let i = 1; i <= rows; i++) {
-    arr.push(Array(cols).fill(blocktype));
+    arr.push(Array(cols).fill());
   }
 };
 export const movePlayer = ({ key }, setPos) => {

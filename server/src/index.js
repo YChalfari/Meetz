@@ -22,6 +22,7 @@ io.on("connection", (socket) => {
   });
   socket.on("movePlayer", ({ id, position }) => {
     socket.broadcast.emit("movePlayer", { id, position });
+    console.log("moved");
   });
   console.log("connected");
   socket.on("disconnect", () => {

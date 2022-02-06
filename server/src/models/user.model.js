@@ -33,14 +33,10 @@ const userSchema = new mongoose.Schema({
       }
     },
   },
-  age: {
-    type: Number,
-    default: 0,
-    validate(value) {
-      if (value < 0) {
-        throw new Error("Age must be a positive number");
-      }
-    },
+  displayName: {
+    type: String,
+    minlength: [1, "Display Name must be at least 1 character long"],
+    trim: true,
   },
   tokens: [
     {

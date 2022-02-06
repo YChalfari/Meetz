@@ -4,14 +4,17 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Map from "./components/map";
 import VideoPlayer from "./components/video-player";
 import Landing from "./pages/landing";
+import Initialize from "./pages/initialize";
 export const UserContext = createContext();
 function App() {
-  const [user, setUser] = useState();
+  const [user, setUser] = useState({});
+  const [players, setPlayers] = useState([]);
   return (
     <div className="App">
-      <UserContext.Provider value={{ user, setUser }}>
+      <UserContext.Provider value={{ user, setUser, players, setPlayers }}>
         <Routes>
           <Route path="/" element={<Landing />} />
+          <Route path="/initialize" element={<Initialize />} />
           <Route path="/room" element={<Map />} />
           {/* <VideoPlayer/>
       <Map />

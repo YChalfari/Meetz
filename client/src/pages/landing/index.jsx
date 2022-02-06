@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../App";
 import usersAPI from "../../apis/usersAPI";
 import { validateRegister } from "../../utils/validateForm";
-
+import Initialize from "../initialize";
 import "./landing.css";
 import Form from "../../components/Form";
 const LandingPage = () => {
@@ -16,11 +16,9 @@ const LandingPage = () => {
     try {
       validateRegister(form);
       const { data } = await usersAPI.post("/users", form);
-      console.log(data);
       setUser({ data: data });
       navigate("/room");
     } catch (e) {
-      console.log(e.message);
       setError(e.message);
     }
   };
@@ -28,6 +26,7 @@ const LandingPage = () => {
     try {
       const { data } = await usersAPI.post("/users/login", form);
       setUser({ data: data });
+      navigate("/room");
     } catch (e) {
       setError(e.message);
     }
@@ -37,7 +36,9 @@ const LandingPage = () => {
   };
   return (
     <div className="landing-page">
-      <div className="landing-page__content"></div>
+      <div className="landing-page__content">
+        <Initialize />
+      </div>
       <div className="landing-page__form">
         {!isRegister ? (
           <Form

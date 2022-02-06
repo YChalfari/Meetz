@@ -23,7 +23,15 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
-
+.prem-mark {
+  font-family: "Permanent Marker", cursive;
+}
+.staat {
+  font-family: "Staatliches", cursive;
+}
+.player2-font {
+  font-family: "Press Start 2P", cursive;
+}
 .App-link {
   color: #61dafb;
 }
