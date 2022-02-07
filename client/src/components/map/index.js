@@ -1,63 +1,59 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import io from "socket.io-client";
 import { matrixGenerator, movePlayer } from "../../utils/map.utils";
 import { UserContext } from "../../App";
 import Tile from "../tile";
 import "./map.css";
 import Player from "../player";
-
+import { maps } from "../../utils/map.utils";
+import office from "../../images/maps/office/office.png";
 const socket = io.connect("127.0.0.1:3001");
 const Map = () => {
+  const me = useRef({});
   const { user, setUser, players, setPlayers } = useContext(UserContext);
-  const playerss = [];
   const [playerPosition, setPlayerPosition] = useState({
     x: 1,
     y: 1,
     isFacingForward: true,
   });
 
-  // const [isFacingForward,setIsFacingForward] = useState(true)
-
   const world = [];
 
-  const defaultPlayer = (user, position) => {
-    const newUser = { ...user };
-    newUser.position = position;
-    newUser.isFacingForward = true;
-    newUser.sID = socket.id;
-    setUser(newUser);
-    playerss.push(newUser);
-    // setPlayers((prev) => prev.concat(newUser));
+  const defaultPlayer = () => {
+    console.log(user);
+    me.current.position = { x: 4, y: 3 };
+    me.current.isFacingForward = true;
+    me.current.id = socket.id;
+    me.current.username = user.user.displayName;
   };
 
   useEffect(() => {
     socket.on("connect", () => {
-      defaultPlayer(user, { x: 1, y: 1 });
+      defaultPlayer();
+      console.log("connected");
     });
-    socket.emit("join", {
-      position: playerPosition.x,
-      displayName: "David",
-      id: socket.id,
-      isFacingForward: playerPosition.isFacingForward,
+    setTimeout(() => {
+      socket.emit("join", me.current);
+      console.log(me);
+    }, 5000);
+
+    socket.on("join", (users) => {
+      console.log(users);
+      if (users) setPlayers(users.users);
     });
-    socket.on("join", ({ position, displayName, isFacingForward, id }) => {
-      console.log(position);
-    });
-    socket.on("movePlayer", ({ id, position }) => {
-      //this is logging 22 times on each movement
-      console.log(id, position);
+    socket.on("movePlayer", (users) => {
+      setPlayers(users.users);
     });
     const movePlayerFunc = (e) => {
-      movePlayer(e, setPlayerPosition);
-      socket.emit("movePlayer", { id: socket.id, position: playerPosition.x });
+      movePlayer(e, me.current);
+      socket.emit("movePlayer", me.current);
     };
     window.addEventListener("keydown", movePlayerFunc);
-    // console.log(isFacingForward));
+
     return () => {
       window.removeEventListener("keydown", movePlayerFunc);
     };
   }, []);
-  console.log(user, players);
 
   matrixGenerator(world, 20, 20, "d");
 
@@ -76,18 +72,30 @@ const Map = () => {
       })
     );
   };
-  // console.log(playerPosition.isFacingForward);
+
   const renderPlayers = () => {
-    return playerss.map((player) => (
+    return players.map((player) => (
       <Player
+        key={socket.id}
         position={player.position}
         isFacingForward={player.isFacingForward}
       />
     ));
   };
   // {renderPlayers()}
-  //
-  return <div className="game-board">{renderMap()}</div>;
+  //{renderMap()}
+
+  return (
+    <div
+      className="game-board"
+      style={{
+        background: `url(${office}) center center / cover no-repeat`,
+      }}
+    >
+      {renderPlayers()}
+      {/* <Player position={{ x: 5, y: 5 }} /> */}
+    </div>
+  );
 };
 
 export default Map;

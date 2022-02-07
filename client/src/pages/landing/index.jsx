@@ -19,16 +19,17 @@ const LandingPage = () => {
       setUser({ data: data });
       navigate("/room");
     } catch (e) {
-      setError(e.message);
+      setError(e.response.message);
     }
   };
   const handleLogin = async (form) => {
     try {
       const { data } = await usersAPI.post("/users/login", form);
-      setUser({ data: data });
+      setUser(data);
       navigate("/room");
     } catch (e) {
-      setError(e.message);
+      console.log(e);
+      setError(e.response.message);
     }
   };
   const toggleRegister = () => {
@@ -52,14 +53,16 @@ const LandingPage = () => {
             text="Sign-in"
             inputs={[
               {
-                name: "Email",
+                label: "Email",
+                name: "email",
                 defaultValue: "",
                 type: "email",
                 required: true,
                 placeholder: "Enter your email",
               },
               {
-                name: "Password",
+                label: "Password",
+                name: "password",
                 defaultValue: "",
                 type: "password",
                 required: true,
@@ -79,28 +82,32 @@ const LandingPage = () => {
             text="Register"
             inputs={[
               {
-                name: "Name",
+                label: "Name",
+                name: "name",
                 defaultValue: "",
                 type: "text",
                 required: true,
                 placeholder: "Enter your name",
               },
               {
-                name: "Email",
+                label: "Email",
+                name: "email",
                 defaultValue: "",
                 type: "email",
                 required: true,
                 placeholder: "Enter your email",
               },
               {
-                name: "Password",
+                label: "Password",
+                name: "password",
                 defaultValue: "",
                 type: "password",
                 required: true,
                 placeholder: "Enter your password",
               },
               {
-                name: "Display Name",
+                label: "Display Name",
+                name: "displayName",
                 defaultValue: "",
                 type: "text",
                 placeholder: "Choose a display name",

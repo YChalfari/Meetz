@@ -9,6 +9,12 @@ const io = require("socket.io")(server, {
     allowHeaders: "*",
   },
 });
+const {
+  addUser,
+  removeUser,
+  updateUser,
+  getUser,
+} = require("./socket-utils/users.socket");
 require("dotenv").config();
 const port = process.env.PORT;
 
@@ -16,17 +22,26 @@ const port = process.env.PORT;
 io.on("connection", (socket) => {
   socket.emit("me", socket.id);
   //test having a second player
-  socket.on("join", ({ position, displayName, isFacingForward, id }) => {
-    console.log(position, displayName, id, isFacingForward);
-    io.emit("join", { position, displayName, isFacingForward, id });
+  socket.on("join", (user) => {
+    console.log("join", user);
+    const users = addUser(user);
+    io.emit("join", users);
   });
-  socket.on("movePlayer", ({ id, position }) => {
-    socket.broadcast.emit("movePlayer", { id, position });
-    console.log("moved");
+  //global messages
+  socket.on("sendGlobalMessage", (m, callback) => {
+    const user = getUser(socket.id);
+    io.emit("sendGlobalMessage", generateMessage(user.username, m));
+    callback();
   });
-  console.log("connected");
+  //handlePlayermove
+  socket.on("movePlayer", (user) => {
+    console.log("move", user);
+    const users = updateUser(user);
+    io.emit("movePlayer", users);
+  });
   socket.on("disconnect", () => {
-    socket.broadcast.emit("callEnded");
+    const users = removeUser(socket.id);
+    if (users) io.emit(users);
   });
   //call user
   socket.on("callUser", (data) => {

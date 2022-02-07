@@ -1,34 +1,32 @@
+import office from "../images/maps/office/office.png";
+export const maps = { office };
+
 export const matrixGenerator = (arr, rows, cols, players) => {
   for (let i = 1; i <= rows; i++) {
     arr.push(Array(cols).fill());
   }
 };
-export const movePlayer = ({ key }, setPos) => {
+export const movePlayer = ({ key }, player) => {
+  console.log(player);
   switch (key) {
     case "w": {
-      setPos((prev) => {
-        return { ...prev, x: prev.x-- };
-      });
+      player.position.x--;
       break;
     }
 
     case "a": {
-      setPos((prev) => {
-        return { ...prev, isFacingForward: false, y: prev.y-- };
-      });
+      player.isFacingForward = false;
+      player.y--;
       break;
     }
 
     case "s": {
-      setPos((prev) => {
-        return { ...prev, x: prev.x++ };
-      });
+      player.position.x++;
       break;
     }
     case "d": {
-      setPos((prev) => {
-        return { ...prev, isFacingForward: true, y: prev.y++ };
-      });
+      player.position.y++;
+      player.isFacingForward = true;
       break;
     }
 

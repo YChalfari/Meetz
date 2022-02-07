@@ -7,6 +7,7 @@ const Input = ({
   defaultValue,
   placeholder,
   required,
+  label,
 }) => {
   const [value, setValue] = useState(defaultValue);
   useEffect(() => {
@@ -17,7 +18,7 @@ const Input = ({
   };
   return (
     <div className="input-wrap">
-      <label htmlFor={name.toLowerCase()}>{name}</label>
+      <label htmlFor={name.toLowerCase()}>{label}</label>
       <input
         className="login-input"
         onChange={handleChange}

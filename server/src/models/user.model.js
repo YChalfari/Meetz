@@ -10,6 +10,11 @@ const userSchema = new mongoose.Schema({
     required: true,
     trim: true,
   },
+  displayName: {
+    type: String,
+    minlength: [1, "Display Name must be at least 1 character long"],
+    trim: true,
+  },
   email: {
     type: String,
     unique: true,
@@ -32,11 +37,6 @@ const userSchema = new mongoose.Schema({
         throw new Error('Password cannot contain "password"');
       }
     },
-  },
-  displayName: {
-    type: String,
-    minlength: [1, "Display Name must be at least 1 character long"],
-    trim: true,
   },
   tokens: [
     {

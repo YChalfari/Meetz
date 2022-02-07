@@ -7,9 +7,8 @@ const Form = ({ inputs, type, text, handleSubmit, link, error }) => {
   const [form, setForm] = useState({});
   // let navigate = useNavigate();
   const onChange = (name, value) => {
-    const formattedName = name.toLowerCase();
     const formCopy = { ...form };
-    formCopy[formattedName] = value;
+    formCopy[name] = value;
     setForm(formCopy);
   };
   const onSubmit = () => {
@@ -20,6 +19,7 @@ const Form = ({ inputs, type, text, handleSubmit, link, error }) => {
     return inputs.map((input) => (
       <Input
         key={input.name}
+        dbkey={input.dbkey}
         type={input.type}
         name={input.name}
         defaultValue={input.defaultValue}
