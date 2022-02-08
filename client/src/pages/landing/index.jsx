@@ -6,11 +6,11 @@ import { validateRegister } from "../../utils/validateForm";
 import "./landing.css";
 import Form from "../../components/Form";
 const LandingPage = () => {
-  const [isLoading, setIsLoading] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [isRegister, setIsRegister] = useState(false);
   const navigate = useNavigate();
-  const { user, setUser } = useContext(UserContext);
+  const { user, setUser, setIsLoading } = useContext(UserContext);
   const handleRegister = async (form) => {
     setError("");
     try {
@@ -18,8 +18,8 @@ const LandingPage = () => {
       validateRegister(form);
       const { data } = await usersAPI.post("/users", form);
       setUser({ data: data });
-      navigate("/initialize");
       setIsLoading(false);
+      navigate("/initialize");
     } catch (e) {
       setIsLoading(false);
       setError(e.response.message);
@@ -27,10 +27,13 @@ const LandingPage = () => {
   };
   const handleLogin = async (form) => {
     try {
+      setIsLoading(true);
       const { data } = await usersAPI.post("/users/login", form);
       setUser(data);
+      setIsLoading(false);
       navigate("/initialize");
     } catch (e) {
+      setIsLoading(false);
       console.log(e);
       setError(e.response.message);
     }
