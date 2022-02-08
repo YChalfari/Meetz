@@ -6,6 +6,7 @@ import { validateRegister } from "../../utils/validateForm";
 import "./landing.css";
 import Form from "../../components/Form";
 const LandingPage = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [isRegister, setIsRegister] = useState(false);
   const navigate = useNavigate();
@@ -13,11 +14,14 @@ const LandingPage = () => {
   const handleRegister = async (form) => {
     setError("");
     try {
+      setIsLoading(true);
       validateRegister(form);
       const { data } = await usersAPI.post("/users", form);
       setUser({ data: data });
       navigate("/initialize");
+      setIsLoading(false);
     } catch (e) {
+      setIsLoading(false);
       setError(e.response.message);
     }
   };

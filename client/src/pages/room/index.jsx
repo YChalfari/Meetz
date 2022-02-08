@@ -1,5 +1,5 @@
 import React, { useState, useRef, useContext, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { initSocketListeners } from "../../utils/socket.utils";
 import { UserContext } from "../../App";
 import { movePlayer } from "../../utils/map.utils";
@@ -11,7 +11,11 @@ const Room = () => {
   const { user, players, setPlayers } = useContext(UserContext);
   const playerRef = useRef();
   const location = useLocation();
+  const navigate = useNavigate();
   useEffect(() => {
+    if (!user.token) {
+      return navigate("/");
+    }
     socket.on("connection", () => {
       console.log("connected");
     });
@@ -20,6 +24,7 @@ const Room = () => {
       id: user.token,
       position: { x: 16, y: 5 },
       isFacingForward: true,
+      sID: socket.id,
     };
     playerRef.current = initUser;
     initSocketListeners(playerRef.current, setPlayers);
