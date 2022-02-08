@@ -1,25 +1,23 @@
 const app = require("./app");
+const socketConfig = require("./socket.config");
+const socketIO = require("socket.io");
 const http = require("http");
 const cors = require("cors");
 const server = http.createServer(app);
-const io = require("socket.io")(server, {
-  cors: {
-    origin: "http://localhost:3000",
-    methods: ["GET", "POST"],
-    allowHeaders: "*",
-  },
-});
+const io = socketIO(server, socketConfig);
 const {
   addUser,
   removeUser,
   updateUser,
   getUser,
 } = require("./socket-utils/users.socket");
+
 require("dotenv").config();
 const port = process.env.PORT;
 
 //sockets
 io.on("connection", (socket) => {
+  console.log("connected");
   socket.emit("me", socket.id);
   //test having a second player
   socket.on("join", (user) => {

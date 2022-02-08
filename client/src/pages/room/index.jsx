@@ -4,12 +4,15 @@ import { initSocketListeners } from "../../utils/socket.utils";
 import { UserContext } from "../../App";
 import { movePlayer } from "../../utils/map.utils";
 import Map from "../../components/map";
+import socketio from "socket.io-client";
+const socket = socketio.connect("127.0.0.1:3001");
+
 const Room = () => {
-  const { user, socket, players, setPlayers } = useContext(UserContext);
+  const { user, players, setPlayers } = useContext(UserContext);
   const playerRef = useRef();
   const location = useLocation();
   useEffect(() => {
-    socket.on("connect", () => {
+    socket.on("connection", () => {
       console.log("connected");
     });
     const initUser = {
@@ -27,6 +30,7 @@ const Room = () => {
     window.addEventListener("keydown", movePlayerFunc);
 
     return () => {
+      socket.disconnect();
       window.removeEventListener("keydown", movePlayerFunc);
     };
   }, []);
