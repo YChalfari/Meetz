@@ -25,6 +25,7 @@ io.on("connection", (socket) => {
   socket.on("join", (user) => {
     console.log("join", user);
     const users = addUser(user);
+    console.log("join-res", users);
     io.emit("join", users);
   });
   //global messages

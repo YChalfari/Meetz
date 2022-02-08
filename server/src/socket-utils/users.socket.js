@@ -1,27 +1,27 @@
 const users = [];
 
-const addUser = ({ id, username, position, isFacingForward }) => {
-  console.log(id, username, position, isFacingForward);
-  if (username) username = username.trim().toLowerCase();
-  //check for existing user
+const addUser = ({ id, displayName, position, room, isFacingForward }) => {
+  // console.log(id, displayName, position, isFacingForward, room);
+  if (displayName) displayName = displayName.trim().toLowerCase();
   //Check for existing user
   const existingUser = users.find((user) => user.id === id);
   if (existingUser) {
-    return;
+    return updateUser({ id, displayName, position, room, isFacingForward });
   }
-  const user = { id, username, position, isFacingForward };
+  const user = { id, displayName, position, isFacingForward, room };
   users.push(user);
   return { users };
 };
 
-const updateUser = ({ id, position, isFacingForward }) => {
+const updateUser = ({ id, displayName, position, room, isFacingForward }) => {
   // console.log("updateUser", data);
-  const user = users.find((user) => user.id === id);
-  if (user) {
-    user.position = position;
-    user.isFacingForward = isFacingForward;
+  const index = users.findIndex((user) => user.id === id);
+  if (index) {
+    users[index].position = position;
+    users[index].isFacingForward = isFacingForward;
+    users[index].displayName = displayName;
+    users[index].room = room;
   }
-
   return users;
 };
 const removeUser = (id) => {

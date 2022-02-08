@@ -1,7 +1,10 @@
 .char-select {
   display: flex;
   flex-direction: column;
-  height: 70vh;
+  justify-content: center;
+  align-items: center;
+  gap: 5vmin;
+  height: 100vh;
   background: linear-gradient(
     90deg,
     rgba(2, 0, 36, 1) 0%,
@@ -14,4 +17,24 @@
   color: #fff;
   font-size: 1.4rem;
   padding: 10px;
+}
+.init-input-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+.init-input-container label {
+  color: #fff;
+}
+.char-select input {
+  width: 50%;
+  padding: 10px;
+}
+
+.char-select button {
+  padding: 10px;
+  width: 30%;
+  margin-bottom: 5vmin;
 }

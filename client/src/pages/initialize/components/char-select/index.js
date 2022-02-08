@@ -29,8 +29,9 @@ const reducer = (state, action) => {
   return newState;
 };
 
-const CharSelect = ({ setSelectedChar, selectedChar }) => {
+const CharSelect = ({ setSelectedChar, selectedChar, handleSubmit }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const [inputVals, setInputVals] = useState({ displayName: "", room: "" });
   const chars = Object.entries(characters);
   const prevChar = () => {
     setSelectedChar(chars[state.counter][1].idle);
@@ -41,11 +42,47 @@ const CharSelect = ({ setSelectedChar, selectedChar }) => {
   useEffect(() => {
     setChar();
   }, [state.counter]);
+  const handleRoomChange = (e) => {
+    setInputVals((prev) => {
+      return { ...prev, room: e.target.value };
+    });
+  };
+  const handleNameChange = (e) => {
+    setInputVals((prev) => {
+      return { ...prev, displayName: e.target.value };
+    });
+  };
+  const onSubmit = () => {
+    handleSubmit(inputVals);
+  };
   return (
     <div className="char-select">
       <h2 className="init-title player2-font">Select a Character</h2>
       <Slider counter={dispatch} selectedChar={selectedChar} />
       {/* <Slider {...settings}>{renderChars()}</Slider> */}
+      <div className="init-input-container">
+        <label className="prem-mark" htmlFor="displayName">
+          Display Name:
+        </label>
+        <input
+          onChange={handleNameChange}
+          type="text"
+          name="displayName"
+          value={inputVals.displayName}
+        />
+      </div>
+      <div className="init-input-container">
+        <label className="prem-mark" htmlFor="roomName">
+          Room Name:
+        </label>
+        <input
+          onChange={handleRoomChange}
+          type="text"
+          name="roomName"
+          value={inputVals.room}
+        />
+      </div>
+      <button onClick={onSubmit}>Submit</button>
     </div>
   );
 };
