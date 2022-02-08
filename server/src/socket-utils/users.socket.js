@@ -1,14 +1,15 @@
 const users = [];
 
-const addUser = ({ id, displayName, position, room, isFacingForward }) => {
+const addUser = ({ id, sID, displayName, position, room, isFacingForward }) => {
   // console.log(id, displayName, position, isFacingForward, room);
   if (displayName) displayName = displayName.trim().toLowerCase();
   //Check for existing user
   const existingUser = users.find((user) => user.id === id);
+  if (!id) return users;
   if (existingUser) {
     return updateUser({ id, displayName, position, room, isFacingForward });
   }
-  const user = { id, displayName, position, isFacingForward, room };
+  const user = { id, displayName, position, isFacingForward, room, sID };
   users.push(user);
   return { users };
 };

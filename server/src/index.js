@@ -1,10 +1,10 @@
 const app = require("./app");
-const socketConfig = require("./socket.config");
 const socketIO = require("socket.io");
 const http = require("http");
-const cors = require("cors");
 const server = http.createServer(app);
+const socketConfig = require("./socket.config");
 const io = socketIO(server, socketConfig);
+
 const {
   addUser,
   removeUser,
