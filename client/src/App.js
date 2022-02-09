@@ -20,6 +20,7 @@ export const UserContext = createContext();
 function App() {
   const [token, setToken] = useState(window.localStorage.getItem("token"));
   const [isLoading, setIsLoading] = useState(false);
+  // const [selectedChar,setSelectedChar] = useState()
   const [user, setUser] = useState({});
   const [players, setPlayers] = useState([]);
   const navigate = useNavigate();

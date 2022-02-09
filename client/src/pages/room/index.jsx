@@ -5,7 +5,6 @@ import { UserContext } from "../../App";
 import { movePlayer } from "../../utils/map.utils";
 import Map from "../../components/map";
 import socketio from "socket.io-client";
-const socket = socketio.connect("127.0.0.1:3001");
 
 const Room = () => {
   const { user, players, setPlayers } = useContext(UserContext);
@@ -13,9 +12,11 @@ const Room = () => {
   const location = useLocation();
   const navigate = useNavigate();
   useEffect(() => {
+    console.log(user);
     if (!user.token) {
       return navigate("/");
     }
+    const socket = socketio.connect("127.0.0.1:3001");
     socket.on("connection", () => {
       console.log("connected");
     });
@@ -27,7 +28,8 @@ const Room = () => {
       sID: socket.id,
     };
     playerRef.current = initUser;
-    initSocketListeners(playerRef.current, setPlayers);
+    initSocketListeners(playerRef.current, setPlayers, socket);
+
     const movePlayerFunc = (e) => {
       movePlayer(e, playerRef.current);
       socket.emit("movePlayer", playerRef.current);

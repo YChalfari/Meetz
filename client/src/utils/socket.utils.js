@@ -1,14 +1,12 @@
-import io from "socket.io-client";
-export const socket = io.connect("127.0.0.1:3001");
-
-export const initSocketListeners = (player, setPlayers) => {
+export const initSocketListeners = (player, setPlayers, socket) => {
   socket.on("join", (players) => {
     if (players) {
       setPlayers(players);
     }
   });
+  socket.on("server-message", (message) => console.log(message));
   socket.on("movePlayer", (res) => {
-    console.log(res);
+    setPlayers(res);
   });
   socket.emit("join", player);
 };

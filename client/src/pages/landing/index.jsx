@@ -16,7 +16,7 @@ const LandingPage = () => {
       setIsLoading(true);
       validateRegister(form);
       const { data } = await usersAPI.post("/users", form);
-      setUser({ data: data });
+      setUser(data);
       window.localStorage.setItem("token", data.token);
       setIsLoading(false);
       navigate("/initialize");

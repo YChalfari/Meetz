@@ -12,14 +12,15 @@ const addUser = (userr, sID) => {
   }
   const newUser = { ...userr, sID };
   users.push(newUser);
-  return { users };
+  return users;
 };
 
 const updateUser = (userr, sID) => {
-  console.log(users);
-  const index = users.findIndex((user) => user.sID === sID);
-  // console.log(index);
-  if (index) {
+  console.log({ userr });
+  console.log({ USERS: users });
+  const index = users.findIndex((user) => user.id === userr.id);
+  console.log(index);
+  if (index !== -1) {
     users[index] = { ...userr, sID };
   } else {
     users.push({ ...userr, sID });

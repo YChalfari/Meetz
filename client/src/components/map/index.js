@@ -1,11 +1,9 @@
 import React, { useState, useEffect, useContext, useRef } from "react";
-import io from "socket.io-client";
 import { matrixGenerator, movePlayer } from "../../utils/map.utils";
 import { UserContext } from "../../App";
 import Tile from "../tile";
 import "./map.css";
 import Player from "../player";
-import { maps } from "../../utils/map.utils";
 import office from "../../images/maps/office/office.png";
 // const socket = io.connect("127.0.0.1:3001");
 
@@ -56,7 +54,7 @@ const Map = ({ players }) => {
   //   };
   // }, []);
 
-  matrixGenerator(world, 20, 20, "d");
+  // matrixGenerator(world, 20, 20, "d");
 
   // const renderMap = () => {
   //   return world.map((row, i) =>
@@ -74,15 +72,16 @@ const Map = ({ players }) => {
   //   );
   // };
 
-  // const renderPlayers = () => {
-  //   return players.map((player) => (
-  //     <Player
-  //       // key={socket.id}
-  //       position={player.position}
-  //       isFacingForward={player.isFacingForward}
-  //     />
-  //   ));
-  // };
+  const renderPlayers = () => {
+    if (players.length > 0)
+      return players.map((player) => (
+        <Player
+          key={player.id}
+          position={player.position}
+          isFacingForward={player.isFacingForward}
+        />
+      ));
+  };
   // {renderPlayers()}
   //{renderMap()}
 
@@ -93,7 +92,7 @@ const Map = ({ players }) => {
         background: `url(${office}) center center / cover no-repeat`,
       }}
     >
-      {/* {players && renderPlayers()} */}
+      {players && renderPlayers()}
       {/* <Player position={{ x: 5, y: 5 }} /> */}
     </div>
   );
