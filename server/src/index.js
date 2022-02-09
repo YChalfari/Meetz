@@ -22,7 +22,7 @@ io.on("connection", (socket) => {
   //test having a second player
   socket.on("join", (user) => {
     console.log("join", user);
-    const users = addUser(user);
+    const users = addUser(user, socket.id);
     console.log("join-res", users);
     io.emit("join", users);
   });
@@ -35,11 +35,12 @@ io.on("connection", (socket) => {
   //handlePlayermove
   socket.on("movePlayer", (user) => {
     console.log("move", user);
-    const users = updateUser(user);
+    const users = updateUser(user, socket.id);
     io.emit("movePlayer", users);
   });
   socket.on("disconnect", () => {
     const users = removeUser(socket.id);
+    console.log(users);
     if (users) io.emit(users);
   });
   //call user

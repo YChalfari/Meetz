@@ -6,7 +6,6 @@ import { validateRegister } from "../../utils/validateForm";
 import "./landing.css";
 import Form from "../../components/Form";
 const LandingPage = () => {
-  // const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [isRegister, setIsRegister] = useState(false);
   const navigate = useNavigate();
@@ -18,6 +17,7 @@ const LandingPage = () => {
       validateRegister(form);
       const { data } = await usersAPI.post("/users", form);
       setUser({ data: data });
+      window.localStorage.setItem("token", data.token);
       setIsLoading(false);
       navigate("/initialize");
     } catch (e) {
@@ -30,6 +30,7 @@ const LandingPage = () => {
       setIsLoading(true);
       const { data } = await usersAPI.post("/users/login", form);
       setUser(data);
+      window.localStorage.setItem("token", data.token);
       setIsLoading(false);
       navigate("/initialize");
     } catch (e) {

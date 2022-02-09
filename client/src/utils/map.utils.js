@@ -16,7 +16,7 @@ export const movePlayer = ({ key }, player) => {
 
     case "a": {
       player.isFacingForward = false;
-      player.y--;
+      player.position.y--;
       break;
     }
 

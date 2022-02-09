@@ -1,28 +1,30 @@
 const users = [];
 
-const addUser = ({ id, sID, displayName, position, room, isFacingForward }) => {
+const addUser = (userr, sID) => {
   // console.log(id, displayName, position, isFacingForward, room);
-  if (displayName) displayName = displayName.trim().toLowerCase();
+  if (userr.displayName)
+    userr.displayName = userr.displayName.trim().toLowerCase();
   //Check for existing user
-  const existingUser = users.find((user) => user.id === id);
-  if (!id) return users;
+  const existingUser = users.find((user) => user.id === userr.id);
+  if (!userr.id) return users;
   if (existingUser) {
-    return updateUser({ id, displayName, position, room, isFacingForward });
+    return updateUser(userr, sID);
   }
-  const user = { id, displayName, position, isFacingForward, room, sID };
-  users.push(user);
+  const newUser = { ...userr, sID };
+  users.push(newUser);
   return { users };
 };
 
-const updateUser = ({ id, displayName, position, room, isFacingForward }) => {
-  // console.log("updateUser", data);
-  const index = users.findIndex((user) => user.id === id);
+const updateUser = (userr, sID) => {
+  console.log(users);
+  const index = users.findIndex((user) => user.sID === sID);
+  // console.log(index);
   if (index) {
-    users[index].position = position;
-    users[index].isFacingForward = isFacingForward;
-    users[index].displayName = displayName;
-    users[index].room = room;
+    users[index] = { ...userr, sID };
+  } else {
+    users.push({ ...userr, sID });
   }
+
   return users;
 };
 const removeUser = (id) => {

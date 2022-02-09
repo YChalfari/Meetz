@@ -7,5 +7,8 @@ export const initSocketListeners = (player, setPlayers) => {
       setPlayers(players);
     }
   });
+  socket.on("movePlayer", (res) => {
+    console.log(res);
+  });
   socket.emit("join", player);
 };
