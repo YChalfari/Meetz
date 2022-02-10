@@ -3,4 +3,26 @@
   display: flex;
   flex-direction: column;
   gap: 2vmin;
+  overflow-y: auto;
+  max-height: calc(100vh - 50px);
+}
+.global-chat::-webkit-scrollbar {
+  width: 0.7em;
+}
+
+.global-chat::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+.global-chat::-webkit-scrollbar-thumb {
+  background-color: darkgrey;
+  border-radius: 5px;
+  outline: 1px solid slategrey;
+}
+
+@media (max-width: 767px) {
+  .global-chat {
+    width: 100%;
+    height: calc((100vmax - 100vmin) -45px);
+  }
 }

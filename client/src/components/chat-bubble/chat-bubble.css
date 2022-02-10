@@ -11,3 +11,19 @@
   color: white;
   align-self: end;
 }
+
+.message-container {
+  display: flex;
+  flex-direction: column;
+}
+.sender {
+  align-self: flex-start;
+  font-size: 1.1rem;
+  color: #f4f4f4;
+  font-weight: bold;
+  margin: 2px;
+}
+.timestamp {
+  margin-left: 20px;
+  font-size: 0.8rem;
+}

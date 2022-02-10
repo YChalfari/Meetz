@@ -26,7 +26,7 @@ io.on("connection", (socket) => {
     console.log("joined", user.room, user);
     socket.broadcast.emit(
       "server-message",
-      generateMessage("Admin", `${user.displayName} has joined`)
+      generateMessage("Admin", `${user.displayName} has joined`, null)
     );
     const users = addUser(user, socket.id);
     const usersInRoom = getUsersInRoom(user.room);
@@ -37,8 +37,12 @@ io.on("connection", (socket) => {
   });
   //global messages
   socket.on("sendGlobalMessage", ({ player, message }, callback) => {
-    const user = getUser(socket.id);
-    io.emit("sendGlobalMessage", generateMessage(player.displayName, message));
+    // const user = getUser(socket.id);
+    console.log(player.id);
+    io.emit(
+      "sendGlobalMessage",
+      generateMessage(player.displayName, message, player.id)
+    );
   });
   //handlePlayermove
   socket.on("movePlayer", (user) => {

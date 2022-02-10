@@ -8,13 +8,25 @@ const Toolbar = ({ playerRef, sendMessage, messages }) => {
 
   return (
     <div className="toolbar">
-      <GlobalChat messages={messages} />
-      <input
-        onChange={(e) => setUserInput(e.target.value)}
-        type="text"
-        value={userInput}
-      />
-      <button onClick={() => sendMessage(playerRef, userInput)}>Send</button>
+      <GlobalChat messages={messages} playerRef={playerRef} />
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          sendMessage(playerRef.current, userInput);
+          setUserInput("");
+        }}
+      >
+        <input
+          className="message-input"
+          onChange={(e) => setUserInput(e.target.value)}
+          type="text"
+          value={userInput}
+          placeholder="Type a message and press enter"
+        />
+        {/* <button onClick={() => sendMessage(playerRef.current, userInput)}>
+        Send
+      </button> */}
+      </form>
     </div>
   );
 };
