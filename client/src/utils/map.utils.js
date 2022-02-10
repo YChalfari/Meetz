@@ -7,7 +7,6 @@ export const matrixGenerator = (arr, rows, cols, players) => {
   }
 };
 export const movePlayer = ({ key }, player) => {
-  console.log(player);
   switch (key) {
     case "w": {
       player.position.x--;

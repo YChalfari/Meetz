@@ -1,6 +1,7 @@
 let users = [];
 
 const addUser = (userr, sID) => {
+  console.log(sID);
   //Check for existing user
   const existingUser = users.find((user) => user.id === userr.id);
   if (!userr.id) return users;

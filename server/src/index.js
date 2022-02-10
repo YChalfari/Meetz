@@ -36,13 +36,9 @@ io.on("connection", (socket) => {
     // io.to(user.room).emit("join", usersInRoom);
   });
   //global messages
-  socket.on("sendGlobalMessage", (m, callback) => {
+  socket.on("sendGlobalMessage", ({ player, message }, callback) => {
     const user = getUser(socket.id);
-    io.to(user.room).emit(
-      "sendGlobalMessage",
-      generateMessage(user.displayName, m)
-    );
-    callback();
+    io.emit("sendGlobalMessage", generateMessage(player.displayName, message));
   });
   //handlePlayermove
   socket.on("movePlayer", (user) => {
