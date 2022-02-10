@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../App";
 import usersAPI from "../../apis/usersAPI";
@@ -10,6 +10,12 @@ const LandingPage = () => {
   const [isRegister, setIsRegister] = useState(false);
   const navigate = useNavigate();
   const { user, setUser, setIsLoading } = useContext(UserContext);
+  useEffect(() => {
+    if (window.localStorage.getItem("token")) {
+      console.log("initialize navigate");
+      navigate("/initialize");
+    }
+  });
   const handleRegister = async (form) => {
     setError("");
     try {

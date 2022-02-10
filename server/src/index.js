@@ -10,6 +10,7 @@ const {
   removeUser,
   updateUser,
   getUser,
+  getUsersInRoom,
 } = require("./socket-utils/users.socket");
 
 require("dotenv").config();
@@ -22,16 +23,17 @@ io.on("connection", (socket) => {
   //test having a second player
   socket.on("join", (user) => {
     socket.join(user.room);
-    console.log("joined", user.room);
-    socket.broadcast
-      .to(user.room)
-      .emit(
-        "server-message",
-        generateMessage("Admin", `${user.displayName} has joined`)
-      );
+    console.log("joined", user.room, user);
+    socket.broadcast.emit(
+      "server-message",
+      generateMessage("Admin", `${user.displayName} has joined`)
+    );
     const users = addUser(user, socket.id);
-    console.log("join-res", users);
+    const usersInRoom = getUsersInRoom(user.room);
+    // console.log("join-res", users, usersInRoom);
+    console.log({ usersInRoom }, { users });
     io.emit("join", users);
+    // io.to(user.room).emit("join", usersInRoom);
   });
   //global messages
   socket.on("sendGlobalMessage", (m, callback) => {
@@ -46,12 +48,13 @@ io.on("connection", (socket) => {
   socket.on("movePlayer", (user) => {
     // console.log("move", user);
     const users = updateUser(user, socket.id);
+    const usersInRoom = getUsersInRoom(user.room);
     io.emit("movePlayer", users);
   });
   socket.on("disconnect", () => {
     const users = removeUser(socket.id);
     console.log("disconnected");
-    if (users) io.emit(users);
+    if (users.length > 0) io.emit("userDisconnected", users);
   });
   //call user
   socket.on("callUser", (data) => {

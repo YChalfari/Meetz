@@ -1,0 +1,9 @@
+.room {
+  display: flex;
+}
+
+@media (max-width: 768px) {
+  .room {
+    flex-direction: column;
+  }
+}

@@ -2,9 +2,8 @@ import React, { useState } from "react";
 import { characters } from "../../utils/character.utils.js";
 import wraith1 from "../../images/characters/wraith/Wraith_resized.png";
 import "./player.css";
-const Player = ({ isFacingForward, character, position }) => {
-  const [selectedChar, setSelectedChar] = useState("minotaur");
-  const { wraith, minotaur } = characters;
+const Player = ({ player, isFacingForward, position }) => {
+  const [character, setCharacter] = useState(player.selectedChar);
   const style = () => {
     const styleObj = {};
     isFacingForward
@@ -21,7 +20,7 @@ const Player = ({ isFacingForward, character, position }) => {
   //     }
   return (
     <div className="player" style={style()}>
-      <img src={characters[selectedChar].idle} alt="character" />
+      <img src={player.selectedChar || character} alt="character" />
     </div>
   );
 };

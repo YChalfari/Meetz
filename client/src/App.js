@@ -8,7 +8,6 @@ import {
   Route,
 } from "react-router-dom";
 import usersAPI from "./apis/usersAPI";
-import Map from "./components/map";
 import Room from "./pages/room";
 import VideoPlayer from "./components/video-player";
 import Landing from "./pages/landing";
@@ -24,15 +23,16 @@ function App() {
   const [user, setUser] = useState({});
   const [players, setPlayers] = useState([]);
   const navigate = useNavigate();
-  useEffect(() => {
-    // const getUser = async (token) => {
-    //   const res = await usersApi.get();
-    // };
-    if (token) {
-      setUser({ token });
-      navigate("/initialize");
-    }
-  }, []);
+  // useEffect(() => {
+  //   // const getUser = async (token) => {
+  //   //   const res = await usersApi.get();
+  //   // };
+  //   if (token && window.location.pathname !== "/") {
+  //     console.log("app navigate", window.location.pathname);
+  //     setUser({ token });
+  //     navigate("/initialize");
+  //   }
+  // }, []);
   return (
     <div className="App">
       <UserContext.Provider

@@ -3,6 +3,7 @@ import { matrixGenerator, movePlayer } from "../../utils/map.utils";
 import { UserContext } from "../../App";
 import Tile from "../tile";
 import "./map.css";
+import Jukebox from "./components/jukebox";
 import Player from "../player";
 import office from "../../images/maps/office/office.png";
 // const socket = io.connect("127.0.0.1:3001");
@@ -71,12 +72,13 @@ const Map = ({ players }) => {
   //     })
   //   );
   // };
-
+  console.log(players);
   const renderPlayers = () => {
     if (players.length > 0)
       return players.map((player) => (
         <Player
           key={player.id}
+          player={player}
           position={player.position}
           isFacingForward={player.isFacingForward}
         />
@@ -92,6 +94,7 @@ const Map = ({ players }) => {
         background: `url(${office}) center center / cover no-repeat`,
       }}
     >
+      <Jukebox />
       {players && renderPlayers()}
       {/* <Player position={{ x: 5, y: 5 }} /> */}
     </div>

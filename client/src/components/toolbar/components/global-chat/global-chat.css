@@ -1,0 +1,6 @@
+.global-chat {
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 2vmin;
+}

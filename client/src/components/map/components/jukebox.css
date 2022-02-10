@@ -1,0 +1,7 @@
+.jukebox {
+  grid-area: 18/1 /21/ 3;
+}
+.jukebox img {
+  width: 100%;
+  object-fit: cover;
+}

@@ -8,5 +8,8 @@ export const initSocketListeners = (player, setPlayers, socket) => {
   socket.on("movePlayer", (res) => {
     setPlayers(res);
   });
+  socket.on("userDisconnected", (players) => {
+    setPlayers(players);
+  });
   socket.emit("join", player);
 };
