@@ -1,4 +1,5 @@
 import socketio from "socket.io-client";
+import Peer from "simple-peer";
 let socket;
 
 export const initSocketListeners = (player, setPlayers, setMessages) => {
@@ -10,8 +11,10 @@ export const initSocketListeners = (player, setPlayers, setMessages) => {
   });
   socket.on("server-message", (message) => console.log(message));
   socket.on("movePlayer", (players) => {
-    console.log(players);
     setPlayers(players);
+  });
+  socket.on("getPM", ({ player, message }) => {
+    console.log(message);
   });
   socket.on("sendGlobalMessage", (message) =>
     setMessages((prev) => [...prev, message])
@@ -19,6 +22,7 @@ export const initSocketListeners = (player, setPlayers, setMessages) => {
   socket.on("userDisconnected", (players) => {
     setPlayers(players);
   });
+
   socket.emit("join", player);
 };
 export const disconnectSocket = () => {
@@ -30,3 +34,25 @@ export const emitMovePlayer = (player) => {
 export const sendMessage = (player, message) => {
   socket.emit("sendGlobalMessage", { player, message });
 };
+export const sendPM = (player, recipient, message) => {
+  socket.emit("sendPM", { player, recipient, message });
+};
+
+// VIDEO STUFF
+
+//initiating permissions and setting own video stream
+export const initMyStream = (setStream, myVideo) => {
+  navigator.mediaDevices
+    .getUserMedia({ video: true, audio: true })
+    .then((stream) => {
+      setStream(stream);
+      myVideo.current.srcObject = stream;
+    });
+};
+//call user
+// export    const callUser = (id, stream) => {
+//        const peer = new Peer({
+//          initiator: true,
+//          trickle: false,
+//          stream: stream,
+//        });}

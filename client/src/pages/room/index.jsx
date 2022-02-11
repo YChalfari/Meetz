@@ -9,9 +9,11 @@ import { useLocation, useNavigate } from "react-router-dom";
 import {
   initSocketListeners,
   sendMessage,
+  sendPM,
   emitMovePlayer,
   disconnectSocket,
 } from "../../utils/socket.utils";
+import VideoPlayer from "../../components/video-player/VideoPlayer";
 import { UserContext } from "../../App";
 import { movePlayer } from "../../utils/map.utils";
 import Map from "../../components/map";
@@ -22,11 +24,16 @@ import "./room.css";
 const Room = () => {
   const { user, players, setPlayers } = useContext(UserContext);
   const [messages, setMessages] = useState([]);
-  const [proxyMessage, setProxyMessage] = useState();
+  const [nearbyPlayers, setNearbyPlayers] = useState([]);
+  const [selectedRecipient, setSelectedRecipient] = useState();
+  const [privateMessage, setPrivateMessage] = useState();
+  const playersRef = useRef(players);
   const playerRef = useRef();
   const location = useLocation();
   const navigate = useNavigate();
-
+  useEffect(() => {
+    playersRef.current = players;
+  }, [players]);
   useEffect(() => {
     if (!user.token && !localStorage.getItem("token")) {
       return navigate("/");
@@ -41,8 +48,9 @@ const Room = () => {
     initSocketListeners(playerRef.current, setPlayers, setMessages);
 
     const movePlayerFunc = (e) => {
-      movePlayer(e, playerRef.current);
+      let nb = movePlayer(e, playerRef.current, playersRef.current);
       emitMovePlayer(playerRef.current);
+      setNearbyPlayers(nb);
     };
     window.addEventListener("keydown", movePlayerFunc);
 
@@ -57,6 +65,7 @@ const Room = () => {
       {/* <RoomContext.Provider
         value={(sendMessage, messages, setMessages, playerRef)}
       > */}
+      <VideoPlayer nearbyPlayers={nearbyPlayers} />
       <Map players={players} />
       <ToolBar
         playerRef={playerRef}

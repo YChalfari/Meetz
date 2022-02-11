@@ -14,10 +14,7 @@ const addUser = (userr, sID) => {
 };
 
 const updateUser = (userr, sID) => {
-  // console.log({ userr });
-  // console.log({ USERS: users });
   const index = users.findIndex((user) => user.id === userr.id);
-  console.log(index);
   if (index !== -1) {
     users[index] = { ...userr, sID };
   } else {

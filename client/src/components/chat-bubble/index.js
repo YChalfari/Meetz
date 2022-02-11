@@ -5,7 +5,6 @@ const ChatBubble = (props) => {
   const { text, createdAt, senderID, username } = props.m;
   const { id } = props;
   const className = senderID === id ? "chat-bubble me" : "chat-bubble";
-  console.log(text, createdAt);
   return (
     <div className="message-container">
       <p className="sender">

@@ -1,7 +1,15 @@
 .jukebox {
+  position: relative;
   grid-area: 18/1 /21/ 3;
 }
 .jukebox img {
   width: 100%;
   object-fit: cover;
+}
+.jukebox-controls {
+  position: absolute;
+  top: -40px;
+  /* left: 10%; */
+  width: 70px;
+  height: 30px;
 }

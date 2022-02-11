@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import GlobalChat from "./components/global-chat";
 import { RoomContext } from "../../pages/room";
 import "./toolbar.css";
-const Toolbar = ({ playerRef, sendMessage, messages }) => {
+const Toolbar = ({ playerRef, sendMessage, messages, sendPM }) => {
   const [userInput, setUserInput] = useState("");
   // const { sendMessage, messages, setMessages } = useContext(RoomContext);
 
