@@ -4,10 +4,7 @@ import ChatBubble from "../../../chat-bubble";
 import "./global-chat.css";
 const GlobalChat = ({ messages, playerRef }) => {
   // const { messages } = useContext(MessageContext);
-  const m = [
-    { message: "Hello", timestamp: "10:30", senderID: "me" },
-    { message: "Hello", timestamp: "10:30", senderID: "not me" },
-  ];
+
   const renderChatBubbles = () => {
     if (messages) {
       return messages.map((m, i) => (

@@ -3,9 +3,15 @@ import GlobalChat from "./components/global-chat";
 import SelectInput from "./components/select-options";
 import { RoomContext } from "../../pages/room";
 import "./toolbar.css";
-const Toolbar = ({ playerRef, sendMessage, messages, players }) => {
+const Toolbar = ({
+  playerRef,
+  sendMessage,
+  messages,
+  players,
+  recipient,
+  setRecipient,
+}) => {
   const [userInput, setUserInput] = useState("");
-  const [recipient, setRecipient] = useState("global");
   const [isSelecting, setIsSelecting] = useState(false);
   // const { sendMessage, messages, setMessages } = useContext(RoomContext);
   const handleSelect = (value) => {

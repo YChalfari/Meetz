@@ -2,7 +2,14 @@ import socketio from "socket.io-client";
 import Peer from "simple-peer";
 let socket;
 
-export const initSocketListeners = (player, setPlayers, setMessages) => {
+export const initSocketListeners = (
+  player,
+  setPlayers,
+  setMessages,
+  setIsInCall,
+  setCaller,
+  setIsReceiving
+) => {
   socket = socketio.connect("127.0.0.1:3001");
   socket.on("join", (players) => {
     if (players) {
@@ -23,7 +30,10 @@ export const initSocketListeners = (player, setPlayers, setMessages) => {
   socket.on("userDisconnected", (players) => {
     setPlayers(players);
   });
-
+  socket.on("callUser", (data) => {
+    setIsReceiving(true);
+    setCaller({ fromID: data.from, name: data.name, signal: data.signal });
+  });
   socket.emit("join", player);
 };
 export const disconnectSocket = () => {
@@ -53,10 +63,31 @@ export const initMyStream = (setStream, myVideo) => {
       myVideo.current.srcObject = stream;
     });
 };
-//call user
-// export    const callUser = (id, stream) => {
-//        const peer = new Peer({
-//          initiator: true,
-//          trickle: false,
-//          stream: stream,
-//        });}
+// call user
+export const callUser = (id, stream, partnerVideo) => {
+  const peer = new Peer({
+    initiator: true,
+    trickle: false,
+    stream: stream,
+  });
+  peer.on("signal", (data) => {
+    socket.emit("signal", {
+      userToCall: id,
+      signalData: data,
+      from: socket.id,
+    });
+  });
+  peer.on("stream", (stream) => {
+    if (partnerVideo.current) {
+      partnerVideo.current.srcObject = stream;
+    }
+  });
+  socket.on("callAccepted", (signal) => {
+    //set state to accepted?
+    peer.signal(signal);
+  });
+};
+// Create peer
+export const createPeer = () => {};
+//Add peer
+export const addPeer = () => {};

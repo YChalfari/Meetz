@@ -25,8 +25,10 @@ const Room = () => {
   const { user, players, setPlayers } = useContext(UserContext);
   const [messages, setMessages] = useState([]);
   const [nearbyPlayers, setNearbyPlayers] = useState([]);
-  const [selectedRecipient, setSelectedRecipient] = useState();
-  const [privateMessage, setPrivateMessage] = useState();
+  const [recipient, setRecipient] = useState("global");
+  const [caller, setCaller] = useState();
+  const [isReceiving, setIsReceiving] = useState(false);
+  const [isInCall, setIsInCall] = useState(false);
   const playersRef = useRef(players);
   const playerRef = useRef();
   const location = useLocation();
@@ -45,7 +47,14 @@ const Room = () => {
       isFacingForward: true,
     };
     playerRef.current = initUser;
-    initSocketListeners(playerRef.current, setPlayers, setMessages);
+    initSocketListeners(
+      playerRef.current,
+      setPlayers,
+      setMessages,
+      setIsInCall,
+      setCaller,
+      setIsReceiving
+    );
 
     const movePlayerFunc = (e) => {
       let nb = movePlayer(e, playerRef.current, playersRef.current);
@@ -68,6 +77,8 @@ const Room = () => {
       <VideoPlayer nearbyPlayers={nearbyPlayers} />
       <Map players={players} />
       <ToolBar
+        recipient={recipient}
+        setRecipient={setRecipient}
         playerRef={playerRef}
         sendMessage={sendMessage}
         messages={messages}

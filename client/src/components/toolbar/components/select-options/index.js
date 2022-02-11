@@ -19,6 +19,7 @@ const SelectInput = ({ list, handleSelect, text }) => {
     setIsOpen((isOpen) => !isOpen);
     handleSelect(value);
   };
+
   const renderOptions = () => {
     return (
       listRef &&
@@ -47,6 +48,9 @@ const SelectInput = ({ list, handleSelect, text }) => {
           </li>
       ) */}
       <ul className="dropdown-list">{isOpen && renderOptions()}</ul>
+      {/* {selected !== "global" && (
+        <i onClick={handleCall} className="fa-solid fa-phone-flip"></i>
+      )} */}
     </div>
   );
 };

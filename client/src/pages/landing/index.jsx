@@ -4,6 +4,10 @@ import { UserContext } from "../../App";
 import usersAPI from "../../apis/usersAPI";
 import { validateRegister } from "../../utils/validateForm";
 import "./landing.css";
+import Logo from "../../images/Logo.png";
+import BG from "../../images/landing-bg-kishkush.png";
+import BG2 from "../../images/landing-bg.png";
+
 import Form from "../../components/Form";
 const LandingPage = () => {
   const [error, setError] = useState("");
@@ -49,8 +53,17 @@ const LandingPage = () => {
     setIsRegister((prev) => !prev);
   };
   return (
-    <div className="landing-page">
-      <div className="landing-page__content"></div>
+    <div className="landing-page" style={{ backgroundImage: `url(${BG2})` }}>
+      <div className="landing-page__content">
+        <div className="content-head">
+          <img src={Logo} alt="" />
+          <h2 className="landing-title meetz">MeeTz</h2>
+        </div>
+        <div className="content-body">
+          <p className="c-body__phrase">It's kinda like zoom . . .</p>
+          <p className="c-body__end">... only better</p>
+        </div>
+      </div>
       <div className="landing-page__form">
         {!isRegister ? (
           <Form
