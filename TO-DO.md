@@ -4,7 +4,7 @@
 
 ### Movement
 
-- Basic movement function on key press to update the player's position
+<!-- - Basic movement function on key press to update the player's position -->
 - Boundaries and player position object
   {boundaries: [{x: 0, y: 0}], players:[{x: 0, y: 0}] jukeboxProximity:[]}
 - Boundaries and obstacles function

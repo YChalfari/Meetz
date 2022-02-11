@@ -1,0 +1,22 @@
+.dropdown-container {
+  margin: 2vmin auto 10px auto;
+  min-width: 200px;
+  background-color: #1dddaf;
+  max-width: 230px;
+}
+.dropdown-container ul {
+  list-style: none;
+}
+.dropdown-item {
+  padding: 5px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border-bottom: 1px solid grey;
+}
+
+@media (min-width: 767px) {
+  .dropdown-container {
+    min-width: 15px;
+    max-width: fit-content;
+  }
+}

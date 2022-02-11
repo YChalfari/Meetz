@@ -1,9 +1,10 @@
-const generateMessage = (username, text, id) => {
+const generateMessage = (username, text, id, type) => {
   return {
     username,
     text,
     createdAt: new Date().getTime(),
     senderID: id,
+    type,
   };
 };
 

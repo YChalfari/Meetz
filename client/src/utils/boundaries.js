@@ -12,6 +12,7 @@ const isClose = (pos1, pos2) => {
 };
 export const playerProximity = (players, player) => {
   let nearbyPlayers = [];
+  console.log(players);
   players.forEach((p) => {
     if (p.id !== player.id) {
       if (isClose(player.position, p.position)) {

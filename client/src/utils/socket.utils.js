@@ -13,8 +13,9 @@ export const initSocketListeners = (player, setPlayers, setMessages) => {
   socket.on("movePlayer", (players) => {
     setPlayers(players);
   });
-  socket.on("getPM", ({ player, message }) => {
-    console.log(message);
+  socket.on("getPM", (message) => {
+    console.log(`${message.username} says ${message.text}`);
+    setMessages((prev) => [...prev, message]);
   });
   socket.on("sendGlobalMessage", (message) =>
     setMessages((prev) => [...prev, message])
@@ -31,12 +32,15 @@ export const disconnectSocket = () => {
 export const emitMovePlayer = (player) => {
   socket.emit("movePlayer", player);
 };
-export const sendMessage = (player, message) => {
-  socket.emit("sendGlobalMessage", { player, message });
+export const sendMessage = (player, recipient, message) => {
+  if (recipient === "global") {
+    socket.emit("sendGlobalMessage", { player, message });
+  } else {
+    socket.emit("sendPM", { player, recipient, message });
+  }
 };
-export const sendPM = (player, recipient, message) => {
-  socket.emit("sendPM", { player, recipient, message });
-};
+// export const sendPM = (player, recipient, message) => {
+// };
 
 // VIDEO STUFF
 

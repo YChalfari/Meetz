@@ -35,12 +35,20 @@ io.on("connection", (socket) => {
     io.emit("join", users);
     // io.to(user.room).emit("join", usersInRoom);
   });
+  socket.on("sendPM", ({ player, recipient, message }) => {
+    socket
+      .to(recipient)
+      .emit(
+        "getPM",
+        generateMessage(player.displayName, message, player.id, "private")
+      );
+  });
   //global messages
   socket.on("sendGlobalMessage", ({ player, message }, callback) => {
     // const user = getUser(socket.id);
     io.emit(
       "sendGlobalMessage",
-      generateMessage(player.displayName, message, player.id)
+      generateMessage(player.displayName, message, player.id, "global")
     );
   });
   //handlePlayermove

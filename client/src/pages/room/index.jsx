@@ -71,6 +71,7 @@ const Room = () => {
         playerRef={playerRef}
         sendMessage={sendMessage}
         messages={messages}
+        players={players}
       />
       {/* </RoomContext.Provider> */}
     </div>

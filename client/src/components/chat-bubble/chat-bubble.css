@@ -4,6 +4,8 @@
   align-self: start;
   border-radius: 5px;
   width: 70%;
+  font-size: 1.1rem;
+  font-weight: 600;
 }
 
 .me {
@@ -26,4 +28,8 @@
 .timestamp {
   margin-left: 20px;
   font-size: 0.8rem;
+}
+
+.private {
+  background-color: red;
 }
