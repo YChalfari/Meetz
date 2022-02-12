@@ -1,17 +1,17 @@
-const app = require("./app");
+const app = require("./src/app");
 const socketIO = require("socket.io");
 const http = require("http");
 const server = http.createServer(app);
-const socketConfig = require("./socket.config");
+const socketConfig = require("./src/socket.config");
 const io = socketIO(server, socketConfig);
-const { generateMessage } = require("./socket-utils/chat.socket");
+const { generateMessage } = require("./src/socket-utils/chat.socket");
 const {
   addUser,
   removeUser,
   updateUser,
   getUser,
   getUsersInRoom,
-} = require("./socket-utils/users.socket");
+} = require("./src/socket-utils/users.socket");
 
 require("dotenv").config();
 const port = process.env.PORT;
