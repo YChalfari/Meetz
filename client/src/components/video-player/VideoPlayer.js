@@ -12,6 +12,12 @@ const VideoPlayer = ({
   const [partnerStream, setPartnerStream] = useState(userStream);
   const myVideo = useRef();
   const partnerVideo = useRef();
+  // const peers = useRef([]);
+
+  //set up refs dynamically
+  // useEffect(() => {
+  //   peers.current = new Array(nearbyPlayers.length).fill(null);
+  // }, [nearbyPlayers]);
 
   const setVisibility = () => {
     return isInCall
@@ -21,6 +27,7 @@ const VideoPlayer = ({
   useEffect(() => {
     initMyStream(setStream, myVideo);
   }, []);
+
   useEffect(() => {
     if (nearbyPlayers && nearbyPlayers.length > 0) {
       setIsInCall(true);
@@ -33,11 +40,13 @@ const VideoPlayer = ({
     //emit join room // recieve list of people in room
   }, [nearbyPlayers]);
 
-  const renderVideos = () => {
-    if (nearbyPlayers && nearbyPlayers.length > 0) {
-      nearbyPlayers.map();
-    }
-  };
+  // const renderVideos = () => {
+  //   if (nearbyPlayers && nearbyPlayers.length > 0) {
+  //     nearbyPlayers.map((video, index) => {
+  //       return <video ref={peers.current[index]}></video>;
+  //     });
+  //   }
+  // };
   const handleCall = () => {};
   return (
     <>

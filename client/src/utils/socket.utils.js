@@ -13,7 +13,7 @@ export const initSocketListeners = (
   setIsReceiving,
   setNearbyPlayers
 ) => {
-  socket = socketio.connect("127.0.0.1:3001");
+  socket = socketio.connect(process.env.REACT_APP_SOCKET_URL);
   socket.on("join", (players) => {
     if (players) {
       setNearbyPlayers(playerProximity(players, player));

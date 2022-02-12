@@ -1,13 +1,13 @@
 import office from "../images/maps/office/office.png";
-import { playerProximity } from "./boundaries";
+// import { playerProximity } from "./boundaries";
 
 export const maps = { office };
 
-export const matrixGenerator = (arr, rows, cols, players) => {
-  for (let i = 1; i <= rows; i++) {
-    arr.push(Array(cols).fill());
-  }
-};
+// export const matrixGenerator = (arr, rows, cols, players) => {
+//   for (let i = 1; i <= rows; i++) {
+//     arr.push(Array(cols).fill());
+//   }
+// };
 export const movePlayer = ({ key }, player, players) => {
   switch (key) {
     case "w": {
