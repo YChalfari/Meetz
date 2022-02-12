@@ -60,8 +60,8 @@ const LandingPage = () => {
           <h2 className="landing-title meetz">MeeTz</h2>
         </div>
         <div className="content-body">
-          <p className="c-body__phrase">It's kinda like zoom . . .</p>
-          <p className="c-body__end">... only better</p>
+          <p className="c-body__phrase">It's kinda like zoom...</p>
+          <p className="c-body__end">only better</p>
         </div>
       </div>
       <div className="landing-page__form">
