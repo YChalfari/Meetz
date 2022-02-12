@@ -13,26 +13,30 @@ export const movePlayer = ({ key }, player, players) => {
     case "w": {
       if (player.position.x === 5) return;
       player.position.x--;
-      return playerProximity(players, player);
+      break;
+      // return playerProximity(players, player);
     }
 
     case "a": {
       if (player.position.y === 1) return;
       player.isFacingForward = false;
       player.position.y--;
-      return playerProximity(players, player);
+      break;
+      // return playerProximity(players, player);
     }
 
     case "s": {
       if (player.position.x === 20) return;
       player.position.x++;
-      return playerProximity(players, player);
+      break;
+      // return playerProximity(players, player);
     }
     case "d": {
       if (player.position.y === 20) return;
       player.position.y++;
       player.isFacingForward = true;
-      return playerProximity(players, player);
+      break;
+      // return playerProximity(players, player);
     }
 
     default:

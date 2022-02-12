@@ -1,0 +1,8 @@
+.video-container {
+  position: absolute;
+  top: 5vmin;
+  margin: 0 auto;
+}
+.video-container video {
+  max-height: 150px;
+}

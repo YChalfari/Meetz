@@ -53,7 +53,8 @@ const Room = () => {
       setMessages,
       setIsInCall,
       setCaller,
-      setIsReceiving
+      setIsReceiving,
+      setNearbyPlayers
     );
 
     const movePlayerFunc = (e) => {
@@ -74,7 +75,11 @@ const Room = () => {
       {/* <RoomContext.Provider
         value={(sendMessage, messages, setMessages, playerRef)}
       > */}
-      <VideoPlayer nearbyPlayers={nearbyPlayers} />
+      <VideoPlayer
+        nearbyPlayers={nearbyPlayers}
+        setIsInCall={setIsInCall}
+        isInCall={isInCall}
+      />
       <Map players={players} />
       <ToolBar
         recipient={recipient}

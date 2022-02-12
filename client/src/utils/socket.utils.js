@@ -1,5 +1,7 @@
 import socketio from "socket.io-client";
 import Peer from "simple-peer";
+import { playerProximity } from "./boundaries";
+
 let socket;
 
 export const initSocketListeners = (
@@ -8,16 +10,19 @@ export const initSocketListeners = (
   setMessages,
   setIsInCall,
   setCaller,
-  setIsReceiving
+  setIsReceiving,
+  setNearbyPlayers
 ) => {
   socket = socketio.connect("127.0.0.1:3001");
   socket.on("join", (players) => {
     if (players) {
+      setNearbyPlayers(playerProximity(players, player));
       setPlayers(players);
     }
   });
   socket.on("server-message", (message) => console.log(message));
   socket.on("movePlayer", (players) => {
+    setNearbyPlayers(playerProximity(players, player));
     setPlayers(players);
   });
   socket.on("getPM", (message) => {
@@ -28,12 +33,14 @@ export const initSocketListeners = (
     setMessages((prev) => [...prev, message])
   );
   socket.on("userDisconnected", (players) => {
+    setNearbyPlayers(playerProximity(players, player));
     setPlayers(players);
   });
   socket.on("callUser", (data) => {
     setIsReceiving(true);
     setCaller({ fromID: data.from, name: data.name, signal: data.signal });
   });
+
   socket.emit("join", player);
 };
 export const disconnectSocket = () => {
