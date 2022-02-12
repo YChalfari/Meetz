@@ -4,7 +4,7 @@
   "description": "mock of gather.town",
   "main": "index.js",
   "scripts": {
-    "server": "nodemon server/src/index.js",
+    "server": "nodemon server/index.js",
     "client": "npm run start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "copy": "cp -r client/build server/src",
