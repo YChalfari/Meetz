@@ -26,7 +26,6 @@ export const initSocketListeners = (
     setPlayers(players);
   });
   socket.on("getPM", (message) => {
-    console.log(`${message.username} says ${message.text}`);
     setMessages((prev) => [...prev, message]);
   });
   socket.on("sendGlobalMessage", (message) =>

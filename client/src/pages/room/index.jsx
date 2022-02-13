@@ -20,6 +20,8 @@ import Map from "../../components/map";
 import ToolBar from "../../components/toolbar";
 
 import "./room.css";
+
+const keys = ["a", "w", "s", "d"];
 // export const RoomContext = createContext();
 const Room = () => {
   const { user, players, setPlayers } = useContext(UserContext);
@@ -58,9 +60,11 @@ const Room = () => {
     );
 
     const movePlayerFunc = (e) => {
-      let nb = movePlayer(e, playerRef.current, playersRef.current);
-      emitMovePlayer(playerRef.current);
-      setNearbyPlayers(nb);
+      if (keys.includes(e.key)) {
+        let nb = movePlayer(e, playerRef.current, playersRef.current);
+        emitMovePlayer(playerRef.current);
+        setNearbyPlayers(nb);
+      }
     };
     window.addEventListener("keydown", movePlayerFunc);
 

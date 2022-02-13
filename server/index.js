@@ -36,7 +36,7 @@ io.on("connection", (socket) => {
     // io.to(user.room).emit("join", usersInRoom);
   });
   socket.on("sendPM", ({ player, recipient, message }) => {
-    socket
+    io.to(socket.id)
       .to(recipient)
       .emit(
         "getPM",
