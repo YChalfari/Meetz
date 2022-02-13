@@ -4,12 +4,10 @@
 
 ### Movement
 
-<!-- - Basic movement function on key press to update the player's position -->
+<!-- AutoPathing -->
 
-- Boundaries and player position object
-  {boundaries: [{x: 0, y: 0}], players:[{x: 0, y: 0}] jukeboxProximity:[]}
-- Boundaries and obstacles function
-- Proximity function
+- Add pathing on mouse click , move player to that location
+- State: autopathing active - pathDestination
 
 ### Token
 
@@ -17,19 +15,19 @@
 
 ### Sidebar
 
-- Global chat box
 - Settings - change character, display name
+- Logout
 
 ### Chat bubbles on proximity
 
 ### Video on proximity
 
-### Selected char state
+### player size to fit into grid
 
-### Heroku
+### Props
 
-### player size to fit into
+<!-- Jukebox -->
 
-### names on top of players
-
-### VIDEO CALL or something :(
+- play music on interaction
+<!-- Boardgame -->
+- boardgame on interaction with 2 players in game area
